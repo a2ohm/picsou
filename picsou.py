@@ -6,11 +6,6 @@ import readline
 
 from sub.add import *
 
-# Sub-command functions
-def help(args):
-    """Give some help.
-    """
-
 # Parse arguments
 # Create the top-level parser
 parser = argparse.ArgumentParser(prog="picsou")
@@ -29,6 +24,8 @@ group_add_SG.add_argument('-g', '--gain', type=float,
 
 args = parser.parse_args()
 
+# Call the right module only if some some arguments are parsed
+# else print the help
 if vars(args):
     args.func(args)
 else:
