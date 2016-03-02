@@ -4,7 +4,7 @@
 import argparse
 import readline
 
-from sub.add import *
+from sub.add import add
 
 # Parse arguments
 # Create the top-level parser
