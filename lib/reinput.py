@@ -30,8 +30,11 @@ def reinput(prompt, prompt_end = ": ",
     if valid:
         while cin not in valid:
             cin = input(prompt)
-    else:
+    elif default:
         cin = input(prompt)
+    else:
+        while cin in ['', None]:
+            cin = input(prompt)
 
     # Return the default value if required
     if default and cin == '':
