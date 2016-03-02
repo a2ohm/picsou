@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 import argparse
-import readline
 
 from sub.add import add
 

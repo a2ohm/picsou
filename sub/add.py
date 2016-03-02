@@ -5,12 +5,11 @@
 Define the "add" sub-command.
 """
 
-import readline
-from lib.Completer import Completer
+from lib.reinput import reinput
+from datetime import date
 
-# Define completers
-valid_methods = ['cb', 'cash']
-completer_method = Completer(valid_methods)
+valid_methods = ['cb', 'cash', '']
+default_method = 'cb'
 
 def add(args):
     """Add a gain or a spending in the balance sheet.
@@ -23,7 +22,9 @@ def add(args):
         print("Add a gain of:  %.2f €" % sum)
 
     # Get the paying method
-    readline.set_completer(completer_method.complete)
-    readline.parse_and_bind("tab: complete")
+    method = reinput("\tpaying method",
+            valid = valid_methods, default = default_method)
 
-    method = input("\tpaying method: ")
+    # Get the date
+    today = date.today().strftime("%Y/%m/%d")
+    ddate = reinput("\tdate", default=today)
