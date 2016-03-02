@@ -4,19 +4,12 @@
 import argparse
 import readline
 
+from sub.add import *
+
 # Sub-command functions
 def help(args):
     """Give some help.
     """
-
-
-def add(args):
-    """Add a gain or a spending.
-    """
-    if args.spend:
-        print("spend: -%.2f €" % args.spend)
-    elif args.gain:
-        print("gain:  +%.2f €" % args.gain)
 
 # Parse arguments
 # Create the top-level parser
