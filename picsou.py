@@ -5,6 +5,11 @@ import argparse
 import readline
 
 # Sub-command functions
+def help(args):
+    """Give some help.
+    """
+
+
 def add(args):
     """Add a gain or a spending.
     """
@@ -30,4 +35,8 @@ group_add_SG.add_argument('-g', '--gain', type=float,
         help="amount of the gain")
 
 args = parser.parse_args()
-args.func(args)
+
+if vars(args):
+    args.func(args)
+else:
+    parser.print_help()
