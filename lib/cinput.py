@@ -14,8 +14,9 @@ def cinput(prompt = '', complete = []):
     sys.stdout.write(prompt)
     sys.stdout.flush()
 
-    cin = ''
+    root = ''
     buff = ''
+    size = 0
 
     # Get the file descriptor of stdin
     fd = sys.stdin.fileno()
@@ -34,7 +35,7 @@ def cinput(prompt = '', complete = []):
 
             if c == '\t':
                 # Complete
-                opt = [x for x in complete if x.startswith(cin)]
+                opt = [x for x in complete if x.startswith(root)]
 
                 if opt:
                     if complete_rank >= len(opt):
@@ -48,25 +49,28 @@ def cinput(prompt = '', complete = []):
                     sys.stdout.write('\r')
                     sys.stdout.write(prompt)
                     sys.stdout.write(buff)
-                    sys.stdout.flush()
 
                     complete_rank += 1
 
             elif c == '\r':
                 sys.stdout.write('\r\n')
-                sys.stdout.flush()
-                cin = buff
                 reading = False
+            elif c == '\x7f':
+                sys.stdout.write('\b \b')
+                complete_rank = 0
+                buff = buff[:-1]
+                root = buff
             else:
                 sys.stdout.write(c)
-                sys.stdout.flush()
                 complete_rank = 0
                 buff += c
-                cin = buff
+                root = buff
+
+            sys.stdout.flush()
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-    return cin
+    return buff
 
 if __name__ == '__main__':
     cin = cinput("> ", ['food', 'form', 'automatique', 'automate',
