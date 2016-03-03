@@ -73,6 +73,8 @@ def cinput(prompt = '', complete = []):
     return buff
 
 if __name__ == '__main__':
-    cin = cinput("> ", ['food', 'form', 'automatique', 'automate',
-        'aussitot', 'bar'])
+    #cin = cinput("> ", ['food', 'form', 'automatique', 'automate',
+    #    'aussitot', 'bar'])
+    cin = cinput("> ", ["cb", "cash"])
+
     print("cin: %s" % cin)
