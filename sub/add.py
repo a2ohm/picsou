@@ -6,10 +6,9 @@ Define the "add" sub-command.
 """
 
 from lib.reinput import reinput
+from lib.cinput import cinput
 from datetime import date
 
-valid_methods = ['cb', 'cash', '']
-default_method = 'cb'
 
 def add(args):
     """Add a gain or a spending in the balance sheet.
@@ -22,8 +21,11 @@ def add(args):
         print("Add a gain of:  %.2f €" % sum)
 
     # Get the paying method
+    default_method = 'cb'
+    valid_methods = ['cb', 'cash']
     method = reinput("\tpaying method",
-            valid = valid_methods, default = default_method)
+            valid = valid_methods, default = default_method,
+            func=cinput, complete=valid_methods)
 
     # Get the date
     today = date.today().strftime("%Y/%m/%d")
