@@ -6,7 +6,7 @@ My version of input.
 """
 
 def reinput(prompt, prompt_end = ": ",
-        valid = None, default = None, type=str, func=input):
+        valid = None, default = None, type=str, func=input, **kw):
     """Print the prompt and wait for inputs from the user until this
     input is valid. If the input is empty, default is returned (if
     given).
@@ -29,12 +29,12 @@ def reinput(prompt, prompt_end = ": ",
     # Get the input
     if valid:
         while cin not in valid:
-            cin = func(prompt)
+            cin = func(prompt, **kw)
     elif default:
-        cin = func(prompt)
+        cin = func(prompt, **kw)
     else:
         while cin in ['', None]:
-            cin = func(prompt)
+            cin = func(prompt, **kw)
 
     # Return the default value if required
     if default and cin == '':
@@ -51,11 +51,12 @@ if __name__ == '__main__':
     from cinput import cinput
     valid_numbers = ['quatre', 'vingt', 'quarante-deux', 'un']
 
-    def my_cinput(prompt):
-        valid_numbers = ['quatre', 'vingt', 'quarante-deux', 'un']
-        return cinput(prompt, valid_numbers)
+    #def my_cinput(prompt):
+    #    valid_numbers = ['quatre', 'vingt', 'quarante-deux', 'un']
+    #    return cinput(prompt, valid_numbers)
 
     cin = reinput("Quel est le nombre après deux ?",
-            default="huit", valid=valid_numbers, func=my_cinput)
+            default="huit", valid=valid_numbers, func=cinput,
+            complete = valid_numbers)
     print("Vous avez dit %s ?" % cin)
 
