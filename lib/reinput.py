@@ -14,6 +14,9 @@ def reinput(prompt, prompt_end = ": ",
 
     cin = None
 
+    # Replace '\t' with space
+    prompt = prompt.replace('\t', ' '*4)
+
     # If a default value is given, print it at the end of the prompt
     if default:
         prompt += " [%s] %s" % (str(default), prompt_end)
@@ -50,10 +53,6 @@ if __name__ == '__main__':
     # Now, with cinput
     from cinput import cinput
     valid_numbers = ['quatre', 'vingt', 'quarante-deux', 'un']
-
-    #def my_cinput(prompt):
-    #    valid_numbers = ['quatre', 'vingt', 'quarante-deux', 'un']
-    #    return cinput(prompt, valid_numbers)
 
     cin = reinput("Quel est le nombre après deux ?",
             default="huit", valid=valid_numbers, func=cinput,
