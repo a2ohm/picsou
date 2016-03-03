@@ -28,3 +28,9 @@ def add(args):
     # Get the date
     today = date.today().strftime("%Y/%m/%d")
     ddate = reinput("\tdate", default=today)
+
+    # Get the payee
+    payee = reinput("\tpayee")
+
+    # Get a description
+    desc = reinput("\tdescription", default='-')
