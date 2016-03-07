@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 # -*- coding:utf-8 -*-
 
+import yaml
+
 class stager():
     """Handle the stage file.
 
@@ -8,8 +10,19 @@ class stager():
     be pulled in the database.
     """
 
-    def __init__():
+    def __init__(self):
         pass
 
+    def add(self, sum, timestamp, payee, description):
+        """Add a gain/spending in the stage file.
+        """
+
+        with open('picsou.stage', 'a') as f:
+            f.write(' - sum: %.2f\n' % sum)
+            f.write('   timestamp: %s\n' % timestamp)
+            f.write('   payee: %s\n' % payee)
+            f.write('   description: %s\n\n' % description)
+
 if __name__ == '__main__':
-    pass
+    s = stager()
+    s.add(50, '2016', 'foo', 'bar')
