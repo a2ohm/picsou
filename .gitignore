@@ -4,6 +4,10 @@
 # My todolist
 TODO.md
 
+# Picsou files
+# (staging files)
+*.stage
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
