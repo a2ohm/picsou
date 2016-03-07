@@ -6,8 +6,8 @@ class accountBook():
     def __init__(self):
         pass
 
-    def add(self, transaction):
-        pass
+    def add(self, t):
+        print(t)
 
     def __enter__(self):
         return self

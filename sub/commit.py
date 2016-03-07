@@ -6,6 +6,7 @@ Define the "commit" sub-command.
 """
 
 from lib.accountBook import accountBook
+from lib.transaction import *
 from datetime import date
 
 import sys
@@ -25,5 +26,6 @@ def commit(args):
         sys.exit()
 
     with accountBook() as a:
-        for transaction in stage:
-            a.add(transaction)
+        for t in stage:
+            tt = map(t.get, transaction._fields)
+            a.add(transaction._make(tt))
