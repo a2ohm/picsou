@@ -5,9 +5,10 @@
 TODO.md
 
 # Picsou files
-# (staging files, database)
+# (staging files, database, lock file)
 *.stage
 *.db
+.picsou
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
