@@ -12,9 +12,15 @@ from datetime import date
 import sys
 import yaml
 
-def commit(args):
+def commit(conf, args):
     """Commit staging transactions.
     """
+
+    if not conf:
+        # The account book is not inited.
+        print("There is no account book there.", end=' ')
+        print("Create one with: picsou init.")
+        sys.exit()
 
     # Try to open and load the staging file
     try:

@@ -11,10 +11,19 @@ from lib.stager import stager
 from lib.transaction import *
 from datetime import date
 
+import sys
 
-def add(args):
+
+def add(conf, args):
     """Add a transaction (gain or spending) in the balance sheet.
     """
+    
+    if not conf:
+        # The account book is not inited
+        print("There is no account book there.", end=' ')
+        print("Create one with: picsou init.")
+        sys.exit()
+
     if args.spend:
         sum = -args.spend
         print("Add a spending of:  %.2f €" % sum)

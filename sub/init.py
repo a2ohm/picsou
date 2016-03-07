@@ -8,18 +8,18 @@ Define the "init" sub-command.
 from lib.reinput import reinput
 from lib.loadConf import loadConf
 
-def init(args):
+def init(conf, args):
     """Init the account book.
     """
 
-    # Try to open the lock file
-    conf = loadConf()
-
+    # If a lock file exists...
     if conf:
+        # ... inform the user.
         print("An account book already exist here: %s (%s)."
                 % (conf['name'], conf['description']))
-
+    
     else:
+        # ... else, create it.
         with open(".picsou", 'w') as f:
             print("Create a new account book.")
 

@@ -7,6 +7,8 @@ from sub.add import add
 from sub.commit import commit
 from sub.init import init
 
+from lib.loadConf import loadConf
+
 # Parse arguments
 # Create the top-level parser
 parser = argparse.ArgumentParser(prog="picsou")
@@ -38,6 +40,7 @@ args = parser.parse_args()
 # Call the right module only if some some arguments are parsed
 # else print the help
 if vars(args):
-    args.func(args)
+    conf = loadConf()
+    args.func(conf, args)
 else:
     parser.print_help()
