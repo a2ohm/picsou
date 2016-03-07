@@ -16,7 +16,7 @@ def commit(args):
     """Commit staging transactions.
     """
 
-    # Try to open the staging file
+    # Try to open and load the staging file
     try:
         with open("picsou.stage", 'r') as f:
             stage = yaml.load(f)
@@ -25,7 +25,19 @@ def commit(args):
         print("Nothing to commit.")
         sys.exit()
 
-    with accountBook() as a:
-        for t in stage:
-            tt = map(t.get, transaction._fields)
-            a.add(transaction._make(tt))
+    if stage:
+        with accountBook() as a:
+            # Add each transaction in the account book
+            for i, t in enumerate(stage):
+                print("\rCommit [%d/%d]" % (i+1, len(stage)), end='')
+
+                tt = map(t.get, transaction._fields)
+                a.add(transaction._make(tt))
+
+            # Commit modifications in the database
+            a.commit()
+            print('\rCommit done.')
+
+    # Reset the staging file
+    with open("picsou.stage", 'w') as f:
+        pass
