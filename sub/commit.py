@@ -38,6 +38,10 @@ def commit(args):
             a.commit()
             print('\rCommit done.')
 
-    # Reset the staging file
-    with open("picsou.stage", 'w') as f:
-        pass
+        # Reset the staging file
+        with open("picsou.stage", 'w') as f:
+            pass
+    else:
+        print("Nothing to commit.")
+        sys.exit()
+
