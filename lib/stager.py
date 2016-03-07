@@ -13,15 +13,15 @@ class stager():
     def __init__(self):
         pass
 
-    def add(self, sum, timestamp, payee, description):
+    def add(self, t):
         """Add a gain/spending in the stage file.
         """
 
         with open('picsou.stage', 'a') as f:
-            f.write(' - sum: %.2f\n' % sum)
-            f.write('   timestamp: %s\n' % timestamp)
-            f.write('   payee: %s\n' % payee)
-            f.write('   description: %s\n\n' % description)
+            f.write(' - sum: %.2f\n' % t.sum)
+            f.write('   timestamp: %s\n' % t.timestamp)
+            f.write('   payee: %s\n' % t.payee)
+            f.write('   description: %s\n\n' % t.desc)
 
 if __name__ == '__main__':
     s = stager()

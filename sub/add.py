@@ -8,6 +8,7 @@ Define the "add" sub-command.
 from lib.reinput import reinput
 from lib.cinput import cinput
 from lib.stager import stager
+from lib.transaction import *
 from datetime import date
 
 
@@ -39,5 +40,5 @@ def add(args):
     desc = reinput("\tdescription", default='.')
 
     # Save the transaction
-    s = stager()
-    s.add(sum, ddate, payee, desc)
+    t = transaction(sum=sum, timestamp=ddate, payee=payee, desc=desc)
+    stager().add(t)
