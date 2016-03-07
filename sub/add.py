@@ -7,11 +7,12 @@ Define the "add" sub-command.
 
 from lib.reinput import reinput
 from lib.cinput import cinput
+from lib.stager import stager
 from datetime import date
 
 
 def add(args):
-    """Add a gain or a spending in the balance sheet.
+    """Add a transaction (gain or spending) in the balance sheet.
     """
     if args.spend:
         sum = -args.spend
@@ -35,4 +36,8 @@ def add(args):
     payee = reinput("\tpayee")
 
     # Get a description
-    desc = reinput("\tdescription", default='-')
+    desc = reinput("\tdescription", default='.')
+
+    # Save the transaction
+    s = stager()
+    s.add(sum, ddate, payee, desc)
