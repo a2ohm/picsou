@@ -1,6 +1,9 @@
 # Vim cache
 *.swp
 
+# My todolist
+TODO.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
