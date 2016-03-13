@@ -7,6 +7,7 @@ from sub.add import add
 from sub.commit import commit
 from sub.init import init
 from sub.report import report
+from sub.status import status
 
 from lib.loadConf import loadConf
 
@@ -44,6 +45,11 @@ parser_report.add_argument('-s', '--since',
 parser_report.add_argument('-p', '--payee',
         help="report for a given payee")
 parser_report.set_defaults(func=report)
+
+# Create the parser for the "status" command
+parser_status = subparsers.add_parser("status",
+        help="print staging transactions")
+parser_status.set_defaults(func=status)
 
 args = parser.parse_args()
 
