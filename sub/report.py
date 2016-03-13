@@ -9,6 +9,8 @@ import sys
 
 from lib.accountBook import accountBook
 from lib.color import color
+from lib.transaction import *
+
 from datetime import date
 
 months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -70,25 +72,3 @@ def payeeReport(payee):
     with accountBook() as a:
         printTransactions(
                 a.getFromPayee(payee))
-
-
-
-def printTransactions(transactions):
-        currentDate = ""
-        sum = 0
-        for t in transactions:
-            # Print the transaction
-            if t.timestamp == currentDate:
-                print("%12s %-24s %+8.2f €" % (
-                    '', t.payee, t.sum))
-            else:
-                currentDate = t.timestamp
-                print("%12s %-24s %+8.2f €" % (
-                    t.timestamp, t.payee, t.sum))
-
-            # Sum transactions
-            sum += t.sum
-
-        # Print the TOTAL
-        print("-"*49)
-        print("%12s %-24s %+8.2f €" % ('', 'TOTAL', sum))
