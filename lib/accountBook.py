@@ -8,22 +8,6 @@ class accountBook():
     def __init__(self):
         pass
 
-    def add(self, t):
-        """Add a transaction in the account book.
-        """
-
-        self.c.execute("""
-            INSERT INTO book
-            (sum, timestamp, payee, desc)
-            VALUES (?, ?, ?, ?);
-            """,
-            (t.sum, t.timestamp, t.payee, t.desc) )
-
-    def commit(self):
-        """Commit modifications in the database.
-        """
-        self.db_con.commit()
-
     def __enter__(self):
         # Init the connexion with the database
         self.db_con = sqlite3.connect('picsou.db')
@@ -45,6 +29,24 @@ class accountBook():
         self.c.close()
         # Close the connexion with the database
         self.db_con.close()
+
+    # -----------------
+
+    def add(self, t):
+        """Add a transaction in the account book.
+        """
+
+        self.c.execute("""
+            INSERT INTO book
+            (sum, timestamp, payee, desc)
+            VALUES (?, ?, ?, ?);
+            """,
+            (t.sum, t.timestamp, t.payee, t.desc) )
+
+    def commit(self):
+        """Commit modifications in the database.
+        """
+        self.db_con.commit()
 
     def createTables(self):
         """Create tables if necessary.
