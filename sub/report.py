@@ -36,6 +36,8 @@ def report(conf, args):
             if m >= 13:
                 m = 1
                 y += 1
+    if args.payee:
+        payeeReport(args.payee)
     else:
         monthReport(today.strftime("%Y/%m"))
 
@@ -49,13 +51,32 @@ def monthReport(month):
     
     month_nb = int(month[-2:])
 
+    print()
     print(color.BOLD + "%s" % months[month_nb -1] + color.END)
     print("-"*49)
 
     with accountBook() as a:
+        printTransactions(
+                a.getFromTo("%s/01" % month, "%s/31" % month))
+
+
+def payeeReport(payee):
+    """Print a payee report.
+    """
+
+    print(color.BOLD + "%s" % payee + color.END)
+    print("-"*49)
+
+    with accountBook() as a:
+        printTransactions(
+                a.getPayee(payee))
+
+
+
+def printTransactions(transactions):
         currentDate = ""
         sum = 0
-        for t in a.getFromTo("%s/01" % month, "%s/31" % month):
+        for t in transactions:
             # Print the transaction
             if t.timestamp == currentDate:
                 print("%12s %-24s %+8.2f €" % (
@@ -68,5 +89,6 @@ def monthReport(month):
             # Sum transactions
             sum += t.sum
 
+        # Print the TOTAL
         print("-"*49)
         print("%12s %-24s %+8.2f €" % ('', 'TOTAL', sum))
