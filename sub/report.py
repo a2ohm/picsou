@@ -69,7 +69,7 @@ def payeeReport(payee):
 
     with accountBook() as a:
         printTransactions(
-                a.getPayee(payee))
+                a.getFromPayee(payee))
 
 
 

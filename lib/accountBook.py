@@ -76,7 +76,7 @@ class accountBook():
             ORDER BY timestamp DESC;
             """, (timestamp1, timestamp2))
 
-    def getPayee(self, payee):
+    def getFromPayee(self, payee):
         """Return transaction given a payee.
         """
 
