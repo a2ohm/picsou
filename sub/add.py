@@ -9,6 +9,8 @@ from lib.reinput import reinput
 from lib.cinput import cinput
 from lib.stager import stager
 from lib.transaction import *
+from lib.accountBook import accountBook
+
 from datetime import date
 
 import sys
@@ -23,6 +25,10 @@ def add(conf, args):
         print("There is no account book there.", end=' ')
         print("Create one with: picsou init.")
         sys.exit()
+
+    # Get the list a known payees
+    with accountBook() as a:
+        payees = a.getPayees()
 
     if args.spend:
         sum = -args.spend
@@ -43,7 +49,7 @@ def add(conf, args):
     ddate = reinput("\tdate", default=today)
 
     # Get the payee
-    payee = reinput("\tpayee")
+    payee = reinput("\tpayee", func=cinput, complete=payees)
 
     # Get a description
     desc = reinput("\tdescription", default='.')

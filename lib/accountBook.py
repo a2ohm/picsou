@@ -85,6 +85,18 @@ class accountBook():
             ORDER BY timestamp DESC;
             """, (payee,))
 
+    def getPayees(self):
+        """Return a list of all payees.
+        """
+
+        self.c.execute("""
+            SELECT payee
+            FROM book
+            GROUP BY payee;
+            """)
+
+        return [p[0] for p in self.c.fetchall()]
+
     def commit(self):
         """Commit modifications in the database.
         """
@@ -109,4 +121,5 @@ class accountBook():
             return False
 
 if __name__ == "__main__":
-    pass
+    with accountBook() as a:
+        print(a.getPayees())
