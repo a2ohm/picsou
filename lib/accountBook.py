@@ -76,6 +76,15 @@ class accountBook():
             ORDER BY timestamp DESC;
             """, (timestamp1, timestamp2))
 
+    def getPayee(self, payee):
+        """Return transaction given a payee.
+        """
+
+        return self.get("""
+            WHERE payee = ?
+            ORDER BY timestamp DESC;
+            """, (payee,))
+
     def commit(self):
         """Commit modifications in the database.
         """
