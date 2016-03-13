@@ -66,6 +66,15 @@ class accountBook():
             ORDER BY timestamp DESC;
             """, (timestamp,))
 
+    def getFromTo(self, timestamp1, timestamp2):
+        """Return transactions between timestamp1 and timestamp2.
+        """
+
+        return self.get("""
+            WHERE timestamp >= ?
+            AND   timestamp <= ?
+            ORDER BY timestamp DESC;
+            """, (timestamp1, timestamp2))
 
     def commit(self):
         """Commit modifications in the database.
