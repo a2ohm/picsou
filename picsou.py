@@ -39,6 +39,8 @@ parser_init.set_defaults(func=init)
 # Create the parser for the "report" command
 parser_report = subparsers.add_parser("report",
         help="")
+parser_report.add_argument('-s', '--since',
+        help="starting date of the repport (format: %Y/%m)")
 parser_report.set_defaults(func=report)
 
 args = parser.parse_args()

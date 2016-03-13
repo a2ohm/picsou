@@ -11,6 +11,9 @@ from lib.accountBook import accountBook
 from lib.color import color
 from datetime import date
 
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November',
+            'December']
 
 def report(conf, args):
     """Print a report of the current month.
@@ -23,14 +26,36 @@ def report(conf, args):
         sys.exit()
 
     today = date.today()
+    if args.since:
+        y = int(args.since[:4])
+        m = int(args.since[-2:])
+        while m <= today.month and y <= today.year:
+            monthReport("%04d/%02d" % (y, m))
+            m += 1
 
-    print(color.BOLD + "%s" % today.strftime("%B") + color.END)
+            if m >= 13:
+                m = 1
+                y += 1
+    else:
+        monthReport(today.strftime("%Y/%m"))
+
+
+def monthReport(month):
+    """Print a month report.
+
+    input:
+        month: "%Y/%m"
+    """
+    
+    month_nb = int(month[-2:])
+
+    print(color.BOLD + "%s" % months[month_nb -1] + color.END)
     print("-"*49)
 
     with accountBook() as a:
         currentDate = ""
         sum = 0
-        for t in a.getSince(today.strftime("%Y/%m/01")):
+        for t in a.getFromTo("%s/01" % month, "%s/31" % month):
             # Print the transaction
             if t.timestamp == currentDate:
                 print("%12s %-24s %+8.2f €" % (
