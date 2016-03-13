@@ -6,6 +6,7 @@ import argparse
 from sub.add import add
 from sub.commit import commit
 from sub.init import init
+from sub.report import report
 
 from lib.loadConf import loadConf
 
@@ -34,6 +35,11 @@ parser_commit.set_defaults(func=commit)
 parser_init = subparsers.add_parser("init",
         help="init the account book")
 parser_init.set_defaults(func=init)
+
+# Create the parser for the "report" command
+parser_report = subparsers.add_parser("report",
+        help="")
+parser_report.set_defaults(func=report)
 
 args = parser.parse_args()
 
