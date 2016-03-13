@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import sqlite3
+from lib.transaction import *
 
 class accountBook():
 
@@ -42,6 +43,20 @@ class accountBook():
             VALUES (?, ?, ?, ?);
             """,
             (t.sum, t.timestamp, t.payee, t.desc) )
+
+    def getSince(self, timestamp):
+        """Return transactions since a given timestamp.
+        """
+
+        self.c.execute("""
+            SELECT sum, timestamp, payee, desc
+            FROM book
+            WHERE timestamp >= ?
+            ORDER BY timestamp DESC;
+            """,
+            (timestamp,))
+
+        return [t for t in map(transaction._make, self.c.fetchall())]
 
     def commit(self):
         """Commit modifications in the database.
