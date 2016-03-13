@@ -44,19 +44,28 @@ class accountBook():
             """,
             (t.sum, t.timestamp, t.payee, t.desc) )
 
-    def getSince(self, timestamp):
-        """Return transactions since a given timestamp.
+    def get(self, request, *args):
+        """Return transactions given a request.
         """
 
         self.c.execute("""
             SELECT sum, timestamp, payee, desc
             FROM book
-            WHERE timestamp >= ?
-            ORDER BY timestamp DESC;
-            """,
-            (timestamp,))
+            %s
+            """ % request,
+            *args)
 
         return [t for t in map(transaction._make, self.c.fetchall())]
+
+    def getSince(self, timestamp):
+        """Return transactions since a given timestamp.
+        """
+
+        return self.get("""
+            WHERE timestamp >= ?
+            ORDER BY timestamp DESC;
+            """, (timestamp,))
+
 
     def commit(self):
         """Commit modifications in the database.
