@@ -18,7 +18,7 @@ subparsers = parser.add_subparsers()
 
 # Create the parser for the "add" command
 parser_add = subparsers.add_parser("add",
-        help="add a transaction")
+        help="Add a transaction.")
 parser_add.set_defaults(func=add)
 
 group_add_SG = parser_add.add_mutually_exclusive_group()
@@ -29,17 +29,17 @@ group_add_SG.add_argument('-g', '--gain', type=float,
 
 # Create the parser for the "commit" command
 parser_commit = subparsers.add_parser("commit",
-        help="commit staging transactions")
+        help="Commit staging transactions.")
 parser_commit.set_defaults(func=commit)
 
 # Create the parser for the "init" command
 parser_init = subparsers.add_parser("init",
-        help="init the account book")
+        help="Init the account book.")
 parser_init.set_defaults(func=init)
 
 # Create the parser for the "report" command
 parser_report = subparsers.add_parser("report",
-        help="")
+        help="Print a report about the account book.")
 parser_report.add_argument('-s', '--since',
         help="starting date of the repport (format: %%Y/%%m)")
 parser_report.add_argument('-p', '--payee',
@@ -50,7 +50,7 @@ parser_report.set_defaults(func=report)
 
 # Create the parser for the "status" command
 parser_status = subparsers.add_parser("status",
-        help="print staging transactions")
+        help="Print staging transactions.")
 parser_status.set_defaults(func=status)
 
 args = parser.parse_args()
