@@ -37,6 +37,7 @@ class accountBook():
         """Add a transaction in the account book.
         """
 
+        # Add the transaction
         self.c.execute("""
             INSERT INTO book
             (sum, timestamp, payee, desc, method)
@@ -44,8 +45,10 @@ class accountBook():
             """,
             (t.sum, t.timestamp, t.payee, t.desc, t.method) )
 
+        # Get back the id of the added transaction
         id_transaction = self.c.lastrowid
 
+        # Save tags
         for tag in t.tags:
             self.linkToTag(id_transaction, tag)
 
@@ -140,9 +143,12 @@ class accountBook():
         """Add a tag to a transaction.
         """
 
+        # Get the id of the tag
         id_tag = self.getTagId(tag)
 
         if not id_tag:
+            # The tag doesn't exist...
+            # ... so create it
             self.c.execute("""
                 INSERT INTO tags
                 (name)
@@ -151,12 +157,15 @@ class accountBook():
 
             id_tag = self.c.lastrowid
 
+            # ... and link it with the transaction
             self.c.execute("""
                 INSERT INTO tag_links
                 (id_transaction, id_tag)
                 VALUES (?, ?);
                 """, (id_transaction, id_tag))
         else:
+            # The tag already exist...
+            # ... check if the transaction is already linked to this tag
             self.c.execute("""
                 SELECT *
                 FROM tag_links
@@ -164,6 +173,7 @@ class accountBook():
                 """, (id_transaction, id_tag))
 
             if not self.c.fetchone():
+                # ... link the tag with the transaction if necessary
                 self.c.execute("""
                     INSERT INTO tag_links
                     (id_transaction, id_tag)
