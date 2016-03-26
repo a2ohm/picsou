@@ -7,6 +7,7 @@ Define the "add" sub-command.
 
 from lib.reinput import reinput
 from lib.cinput import cinput
+from lib.pinput import pinput
 from lib.stager import stager
 from lib.transaction import *
 from lib.accountBook import accountBook
@@ -46,7 +47,7 @@ def add(conf, args):
 
     # Get the date
     today = date.today().strftime("%Y/%m/%d")
-    ddate = reinput("\tdate", default=today)
+    ddate = reinput("\tdate", default=today, func=pinput, pre=today)
 
     # Get the payee
     payee = reinput("\tpayee", func=cinput, complete=payees)
