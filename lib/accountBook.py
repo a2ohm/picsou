@@ -39,17 +39,17 @@ class accountBook():
 
         self.c.execute("""
             INSERT INTO book
-            (sum, timestamp, payee, desc)
-            VALUES (?, ?, ?, ?);
+            (sum, timestamp, payee, desc, method)
+            VALUES (?, ?, ?, ?, ?);
             """,
-            (t.sum, t.timestamp, t.payee, t.desc) )
+            (t.sum, t.timestamp, t.payee, t.desc, t.method) )
 
     def get(self, request, *args):
         """Return transactions given a request.
         """
 
         self.c.execute("""
-            SELECT sum, timestamp, payee, desc
+            SELECT sum, timestamp, payee, desc, method
             FROM book
             %s
             """ % request,
@@ -111,7 +111,8 @@ class accountBook():
                 sum REAL,
                 timestamp TEXT,
                 payee TEXT,
-                desc TEXT);
+                desc TEXT,
+                method TEXT);
                 ''')
 
             self.db_con.commit()

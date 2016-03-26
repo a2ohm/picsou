@@ -55,7 +55,7 @@ def monthReport(month):
 
     print()
     print(color.BOLD + "%s" % months[month_nb -1] + color.END)
-    print("-"*49)
+    print("-"*54)
 
     with accountBook() as a:
         printTransactions(
@@ -67,7 +67,7 @@ def payeeReport(payee):
     """
 
     print(color.BOLD + "%s" % payee + color.END)
-    print("-"*49)
+    print("-"*54)
 
     with accountBook() as a:
         printTransactions(

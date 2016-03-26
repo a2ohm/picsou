@@ -21,8 +21,9 @@ class stager():
             f.write(' - sum: %.2f\n' % t.sum)
             f.write('   timestamp: %s\n' % t.timestamp)
             f.write('   payee: %s\n' % t.payee)
-            f.write('   description: %s\n\n' % t.desc)
+            f.write('   description: %s\n' % t.desc)
+            f.write('   method: %s\n\n' % t.method)
 
 if __name__ == '__main__':
     s = stager()
-    s.add(50, '2016', 'foo', 'bar')
+    s.add(50, '2016', 'foo', 'bar', 'CB')

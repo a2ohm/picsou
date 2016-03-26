@@ -55,5 +55,6 @@ def add(conf, args):
     desc = reinput("\tdescription", default='.')
 
     # Save the transaction
-    t = transaction(sum=sum, timestamp=ddate, payee=payee, desc=desc)
+    t = transaction(sum=sum, timestamp=ddate, payee=payee, desc=desc,
+            method=method)
     stager().add(t)
