@@ -38,7 +38,7 @@ def report(conf, args):
             if m >= 13:
                 m = 1
                 y += 1
-    if args.payee:
+    elif args.payee:
         payeeReport(args.payee)
     else:
         monthReport(today.strftime("%Y/%m"))
