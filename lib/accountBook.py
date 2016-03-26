@@ -63,7 +63,7 @@ class accountBook():
 
         return self.get("""
             WHERE timestamp >= ?
-            ORDER BY timestamp DESC;
+            ORDER BY timestamp;
             """, (timestamp,))
 
     def getFromTo(self, timestamp1, timestamp2):
@@ -73,7 +73,7 @@ class accountBook():
         return self.get("""
             WHERE timestamp >= ?
             AND   timestamp <= ?
-            ORDER BY timestamp DESC;
+            ORDER BY timestamp;
             """, (timestamp1, timestamp2))
 
     def getFromPayee(self, payee):
@@ -82,7 +82,7 @@ class accountBook():
 
         return self.get("""
             WHERE payee = ?
-            ORDER BY timestamp DESC;
+            ORDER BY timestamp;
             """, (payee,))
 
     def getPayees(self):
