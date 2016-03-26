@@ -62,7 +62,8 @@ class accountBook():
             """ % request,
             *args)
 
-        return [t for t in map(transaction._make, self.c.fetchall())]
+        return [transaction._make(list(t) + [''])
+                for t in self.c.fetchall()]
 
     def getSince(self, timestamp):
         """Return transactions since a given timestamp.
