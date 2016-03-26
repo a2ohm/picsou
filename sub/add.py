@@ -55,6 +55,9 @@ def add(conf, args):
     # Get a description
     desc = reinput("\tdescription", default='.')
 
+    # Get tags
+    tags = linput("\ttags")
+
     # Save the transaction
     t = transaction(sum=sum, timestamp=ddate, payee=payee, desc=desc,
             method=method)
