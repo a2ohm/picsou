@@ -41,7 +41,7 @@ parser_init.set_defaults(func=init)
 parser_report = subparsers.add_parser("report",
         help="")
 parser_report.add_argument('-s', '--since',
-        help="starting date of the repport (format: %Y/%m)")
+        help="starting date of the repport (format: %%Y/%%m)")
 parser_report.add_argument('-p', '--payee',
         help="report for a given payee")
 parser_report.set_defaults(func=report)
