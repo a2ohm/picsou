@@ -22,8 +22,9 @@ class stager():
             f.write('   timestamp: %s\n' % t.timestamp)
             f.write('   payee: %s\n' % t.payee)
             f.write('   description: %s\n' % t.desc)
-            f.write('   method: %s\n\n' % t.method)
+            f.write('   method: %s\n' % t.method)
+            f.write('   tags: [%s]\n\n' % ', '.join(t.tags))
 
 if __name__ == '__main__':
     s = stager()
-    s.add(50, '2016', 'foo', 'bar', 'CB')
+    s.add(50, '2016', 'foo', 'bar', 'CB', [])

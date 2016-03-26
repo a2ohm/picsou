@@ -8,6 +8,7 @@ Define the "add" sub-command.
 from lib.reinput import reinput
 from lib.cinput import cinput
 from lib.pinput import pinput
+from lib.linput import linput
 from lib.stager import stager
 from lib.transaction import *
 from lib.accountBook import accountBook
@@ -28,8 +29,10 @@ def add(conf, args):
         sys.exit()
 
     # Get the list a known payees
+    # and of tags
     with accountBook() as a:
-        payees = a.getPayees()
+        payeesList = a.getPayees()
+        tagsList = a.getTags()
 
     if args.spend:
         sum = -args.spend
@@ -50,15 +53,15 @@ def add(conf, args):
     ddate = reinput("\tdate", default=today, func=pinput, pre=today)
 
     # Get the payee
-    payee = reinput("\tpayee", func=cinput, complete=payees)
+    payee = reinput("\tpayee", func=cinput, complete=payeesList)
 
     # Get a description
     desc = reinput("\tdescription", default='.')
 
     # Get tags
-    tags = linput("\ttags")
+    tags = linput("\ttags", func=cinput, complete=tagsList)
 
     # Save the transaction
     t = transaction(sum=sum, timestamp=ddate, payee=payee, desc=desc,
-            method=method)
+            method=method, tags=tags)
     stager().add(t)

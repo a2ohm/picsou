@@ -8,7 +8,7 @@ Define structures and function to manipulate transactions.
 from collections import namedtuple
 
 transaction = namedtuple("transaction",
-    "sum timestamp payee desc method")
+    "sum timestamp payee desc method tags")
 
 meth = {    "cb": "CB",
             "cash": "C"}

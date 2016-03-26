@@ -10,6 +10,8 @@ def linput(prompt, prompt_end = ": ",
     cin = None
     inputs = []
 
+    # Replace '\t' with spaces
+    prompt = prompt.replace('\t', ' '*4)
     prompt += prompt_end
 
     if valid:

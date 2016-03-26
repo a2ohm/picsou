@@ -44,6 +44,13 @@ class accountBook():
             """,
             (t.sum, t.timestamp, t.payee, t.desc, t.method) )
 
+        id_transaction = self.c.lastrowid
+
+        for tag in t.tags:
+            self.linkToTag(id_transaction, tag)
+
+
+
     def get(self, request, *args):
         """Return transactions given a request.
         """
@@ -97,6 +104,75 @@ class accountBook():
 
         return [p[0] for p in self.c.fetchall()]
 
+    def getTags(self):
+        """Return a list of all tags.
+        """
+
+        self.c.execute("""
+            SELECT name
+            FROM tags
+            GROUP BY name;
+            """)
+
+        return [t[0] for t in self.c.fetchall()]
+
+    # -------------
+
+    def getTagId(self, name):
+        """Return the id of a tag given its name.
+        """
+        
+        self.c.execute("""
+            SELECT id_tag
+            FROM tags
+            WHERE name = ?;
+            """, (name,))
+
+        tag = self.c.fetchone()
+
+        if tag:
+            return tag[0]
+        else:
+            return None
+
+    def linkToTag(self, id_transaction, tag):
+        """Add a tag to a transaction.
+        """
+
+        id_tag = self.getTagId(tag)
+
+        if not id_tag:
+            self.c.execute("""
+                INSERT INTO tags
+                (name)
+                VALUES (?);
+                """, (tag,))
+
+            id_tag = self.c.lastrowid
+
+            self.c.execute("""
+                INSERT INTO tag_links
+                (id_transaction, id_tag)
+                VALUES (?, ?);
+                """, (id_transaction, id_tag))
+        else:
+            self.c.execute("""
+                SELECT *
+                FROM tag_links
+                WHERE id_transaction = ? AND id_tag = ?;
+                """, (id_transaction, id_tag))
+
+            if not self.c.fetchone():
+                self.c.execute("""
+                    INSERT INTO tag_links
+                    (id_transaction, id_tag)
+                    VALUES (?, ?);
+                    """, (id_transaction, id_tag))
+
+        self.commit()
+
+    # -------------
+
     def commit(self):
         """Commit modifications in the database.
         """
@@ -107,12 +183,22 @@ class accountBook():
         """
         try:
             self.c.execute('''CREATE TABLE book (
-                id INTEGER PRIMARY KEY,
+                id_transaction INTEGER PRIMARY KEY,
                 sum REAL,
                 timestamp TEXT,
                 payee TEXT,
                 desc TEXT,
                 method TEXT);
+                ''')
+
+            self.c.execute('''CREATE TABLE tags (
+                id_tag INTEGER PRIMARY KEY,
+                name TEXT);
+                ''')
+
+            self.c.execute('''CREATE TABLE tag_links (
+                id_transaction INTEGER,
+                id_tag INTEGER);
                 ''')
 
             self.db_con.commit()
