@@ -11,6 +11,8 @@ transaction = namedtuple("transaction",
     "sum timestamp payee desc method tags")
 
 meth = {    "cb": "CB",
+            "cb_web": "CBW",
+            "paypal": "P",
             "cash": "C"}
 
 def printTransactions(transactions):
