@@ -43,7 +43,7 @@ def add(conf, args):
 
     # Get the paying method
     default_method = 'cb'
-    valid_methods = ['cb', 'cash', 'cb_web', 'paypal']
+    valid_methods = ['cb', 'cash', 'cb_web', 'paypal', 'transfer']
     method = reinput("\tpaying method",
             valid = valid_methods, default = default_method,
             func=cinput, complete=valid_methods)

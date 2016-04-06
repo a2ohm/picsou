@@ -13,6 +13,7 @@ transaction = namedtuple("transaction",
 meth = {    "cb": "CB",
             "cb_web": "CBW",
             "paypal": "P",
+            "transfer": "T",
             "cash": "C"}
 
 def printTransactions(transactions):
