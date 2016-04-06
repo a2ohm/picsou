@@ -22,13 +22,18 @@ def printTransactions(transactions):
 
         for t in transactions:
             # Print the transaction
+            if len(t.payee) >= 24:
+                payee = t.payee[0:22] + '...'
+            else:
+                payee = t.payee
+
             if t.timestamp == currentDate:
                 print("%12s %-24s %+8.2f € [%s]" % ( 
-                    '', t.payee, t.sum, meth[t.method]))
+                    '', payee, t.sum, meth[t.method]))
             else:
                 currentDate = t.timestamp
                 print("%12s %-24s %+8.2f € [%s]" % ( 
-                    t.timestamp, t.payee, t.sum, meth[t.method]))
+                    t.timestamp, payee, t.sum, meth[t.method]))
 
             # Sum transactions
             sum += t.sum
