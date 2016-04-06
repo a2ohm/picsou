@@ -23,7 +23,7 @@ def printTransactions(transactions):
         for t in transactions:
             # Print the transaction
             if len(t.payee) >= 24:
-                payee = t.payee[0:22] + '...'
+                payee = t.payee[0:21] + '...'
             else:
                 payee = t.payee
 
