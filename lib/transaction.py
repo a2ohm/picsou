@@ -14,7 +14,8 @@ meth = {    "cb": "CB",
             "cb_web": "CBW",
             "paypal": "P",
             "transfer": "T",
-            "cash": "C"}
+            "cash": "C",
+            "cheque": "Q"}
 
 def printTransactions(transactions):
         currentDate = ""
