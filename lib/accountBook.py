@@ -59,13 +59,14 @@ class accountBook():
         """
 
         self.c.execute("""
-            SELECT sum, timestamp, payee, desc, method
+            SELECT id_transaction, sum, timestamp, payee, desc, method
             FROM book
             %s
             """ % request,
             *args)
 
-        return [transaction._make(list(t) + [''])
+        return [transaction._make(list(t)[1:] + [', '.join(
+            self.getTags(t[0]))])
                 for t in self.c.fetchall()]
 
     def getSince(self, timestamp):
@@ -109,7 +110,7 @@ class accountBook():
         return [p[0] for p in self.c.fetchall()]
 
     def getFromTag(self, tag):
-        """Return transaction given a payee.
+        """Return transaction given a tag.
         """
 
         id_tag = self.getTagId(tag)
@@ -126,8 +127,22 @@ class accountBook():
         return [transaction._make(list(t) + [''])
                 for t in self.c.fetchall()]
 
+    def getTags(self, id_transaction):
+        """Return tags of a given transaction.
+        """
 
-    def getTags(self):
+        self.c.execute("""
+            SELECT tags.name
+            FROM tags
+            INNER JOIN tag_links
+            ON tags.id_tag = tag_links.id_tag
+            WHERE tag_links.id_transaction = ?;
+            """, (id_transaction,))
+
+        return [t[0] for t in self.c.fetchall()]
+
+
+    def getAllTags(self):
         """Return a list of all tags.
         """
 
