@@ -17,7 +17,7 @@ meth = {    "cb": "CB",
             "cash": "C",
             "cheque": "Q"}
 
-def printTransactions(transactions):
+def printTransactions(transactions, verbose=False):
         currentDate = ""
         sum = 0 
 
@@ -35,6 +35,10 @@ def printTransactions(transactions):
                 currentDate = t.timestamp
                 print("%12s %-24s %+8.2f € [%s]" % ( 
                     t.timestamp, payee, t.sum, meth[t.method]))
+
+            if verbose and t.desc:
+                print("%12s  (%s)" % (
+                    '', t.desc))
 
             # Sum transactions
             sum += t.sum

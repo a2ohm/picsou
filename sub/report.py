@@ -27,26 +27,32 @@ def report(conf, args):
         print("Create one with: picsou init.")
         sys.exit()
 
+    # Deal with verbosity
+    if args.verbose:
+        verbose = True
+    else:
+        verbose = False
+
     today = date.today()
     if args.since:
         y = int(args.since[:4])
         m = int(args.since[-2:])
         while m <= today.month and y <= today.year:
-            monthReport("%04d/%02d" % (y, m))
+            monthReport("%04d/%02d" % (y, m), verbose=verbose)
             m += 1
 
             if m >= 13:
                 m = 1
                 y += 1
     elif args.payee:
-        payeeReport(args.payee)
+        payeeReport(args.payee, verbose=verbose)
     elif args.tag:
-        tagReport(args.tag)
+        tagReport(args.tag, verbose=verbose)
     else:
-        monthReport(today.strftime("%Y/%m"))
+        monthReport(today.strftime("%Y/%m"), verbose=verbose)
 
 
-def monthReport(month):
+def monthReport(month, verbose=False):
     """Print a month report.
 
     input:
@@ -61,10 +67,11 @@ def monthReport(month):
 
     with accountBook() as a:
         printTransactions(
-                a.getFromTo("%s/01" % month, "%s/31" % month))
+                a.getFromTo("%s/01" % month, "%s/31" % month),
+                verbose=verbose)
 
 
-def payeeReport(payee):
+def payeeReport(payee, verbose = False):
     """Print a payee report.
     """
 
@@ -73,9 +80,10 @@ def payeeReport(payee):
 
     with accountBook() as a:
         printTransactions(
-                a.getFromPayee(payee))
+                a.getFromPayee(payee),
+                verbose=verbose)
 
-def tagReport(tag):
+def tagReport(tag, verbose):
     """Print a tag report.
     """
 
@@ -84,5 +92,6 @@ def tagReport(tag):
 
     with accountBook() as a:
         printTransactions(
-                a.getFromTag(tag))
+                a.getFromTag(tag),
+                verbose=verbose)
 

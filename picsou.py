@@ -46,6 +46,9 @@ parser_report.add_argument('-p', '--payee',
         help="report for a given payee")
 parser_report.add_argument('-t', '--tag',
         help="report for a given tag")
+parser_report.add_argument('-v', '--verbose',
+        help="report more verbosity",
+        action='count')
 parser_report.set_defaults(func=report)
 
 # Create the parser for the "status" command
