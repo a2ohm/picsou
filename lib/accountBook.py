@@ -108,6 +108,25 @@ class accountBook():
 
         return [p[0] for p in self.c.fetchall()]
 
+    def getFromTag(self, tag):
+        """Return transaction given a payee.
+        """
+
+        id_tag = self.getTagId(tag)
+
+        self.c.execute("""
+            SELECT book.sum, book.timestamp, book.payee, book.desc,
+                book.method
+            FROM book
+            INNER JOIN tag_links
+            ON book.id_transaction = tag_links.id_transaction
+            WHERE tag_links.id_tag = ?;
+            """, (id_tag,))
+
+        return [transaction._make(list(t) + [''])
+                for t in self.c.fetchall()]
+
+
     def getTags(self):
         """Return a list of all tags.
         """

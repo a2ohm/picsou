@@ -40,6 +40,8 @@ def report(conf, args):
                 y += 1
     elif args.payee:
         payeeReport(args.payee)
+    elif args.tag:
+        tagReport(args.tag)
     else:
         monthReport(today.strftime("%Y/%m"))
 
@@ -72,3 +74,15 @@ def payeeReport(payee):
     with accountBook() as a:
         printTransactions(
                 a.getFromPayee(payee))
+
+def tagReport(tag):
+    """Print a tag report.
+    """
+
+    print(color.BOLD + "%s" % tag + color.END)
+    print("-"*54)
+
+    with accountBook() as a:
+        printTransactions(
+                a.getFromTag(tag))
+
