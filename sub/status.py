@@ -6,6 +6,7 @@ Define the "status" sub-command.
 """
 
 from lib.transaction import *
+from lib.color import color
 
 import sys
 import yaml
@@ -19,6 +20,12 @@ def status(conf, args):
         print("There is no account book here.", end=' ')
         print("Create one with: picsou init.")
         sys.exit()
+
+    # Print basic information
+    print(color.BOLD + "%s" % conf['name'] + color.END)
+    if conf['description'] != '.':
+        print(color.ITALIC + "  (%s)" % conf['description'] + color.END)
+
 
     # Try to open and load the staging file
     try:
