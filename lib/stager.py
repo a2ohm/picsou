@@ -21,7 +21,7 @@ class stager():
             f.write(' - sum: %.2f\n' % t.sum)
             f.write('   timestamp: %s\n' % t.timestamp)
             f.write('   payee: %s\n' % t.payee)
-            f.write('   description: %s\n' % t.desc)
+            f.write('   desc: %s\n' % t.desc)
             f.write('   method: %s\n' % t.method)
             f.write('   tags: [%s]\n\n' % ', '.join(t.tags))
 
