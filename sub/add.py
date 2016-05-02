@@ -32,7 +32,7 @@ def add(conf, args):
     # and of tags
     with accountBook() as a:
         payeesList = a.getPayees()
-        tagsList = a.getTags()
+        tagsList = a.getAllTags()
 
     if args.spend:
         sum = -args.spend
